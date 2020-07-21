@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*- 
-name = input("Podaj imię ąęśćółńźż ")
+name = input("Podaj imię: ")
 print("Hello " + name)
+print("Nowa linia " + name)
