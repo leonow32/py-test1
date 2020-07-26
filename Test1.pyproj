@@ -30,6 +30,12 @@
     <Compile Include="setup.py" />
     <Compile Include="Test1.py" />
     <Compile Include="thinter.py" />
+    <Compile Include="tki-calculator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tki-entrylabel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tki1.py" />
     <Compile Include="tki2.py" />
     <Compile Include="tki3.py" />
