@@ -3,8 +3,10 @@
 import tkinter as tk
 
 # Funkcje
-def ButtonCmd():
-    return
+def ButtonCmdDigit(Dig):
+    Display.delete(0, END)
+    Display.insert(Dig)
+    
 
 # Okna główne
 Root = tk.Tk()
@@ -16,16 +18,16 @@ Display.grid(row=0, column=0, columnspan=4)
 Display.insert(0, "0")
 
 # Definicje przycisków
-Button0 = tk.Button(Root, text="0", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button1 = tk.Button(Root, text="1", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button2 = tk.Button(Root, text="2", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button3 = tk.Button(Root, text="3", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button4 = tk.Button(Root, text="4", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button5 = tk.Button(Root, text="5", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button6 = tk.Button(Root, text="6", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button7 = tk.Button(Root, text="7", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button8 = tk.Button(Root, text="8", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
-Button9 = tk.Button(Root, text="9", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
+Button0 = tk.Button(Root, text="0", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(0))
+Button1 = tk.Button(Root, text="1", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(1))
+Button2 = tk.Button(Root, text="2", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(2))
+Button3 = tk.Button(Root, text="3", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(3))
+Button4 = tk.Button(Root, text="4", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(4))
+Button5 = tk.Button(Root, text="5", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(5))
+Button6 = tk.Button(Root, text="6", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(6))
+Button7 = tk.Button(Root, text="7", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(7))
+Button8 = tk.Button(Root, text="8", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(8))
+Button9 = tk.Button(Root, text="9", width=10, height=2, padx=3, pady=0, command=lambda: ButtonCmdDigit(9))
 ButtonRET = tk.Button(Root, text="C", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
 ButtonCLR = tk.Button(Root, text="CLR", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
 ButtonADD = tk.Button(Root, text="+", width=10, height=2, padx=3, pady=0, command=ButtonCmd)
