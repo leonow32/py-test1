@@ -27,7 +27,6 @@
     <Compile Include="console.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="setup.py" />
     <Compile Include="Test1.py" />
     <Compile Include="thinter.py" />
     <Compile Include="tki-calculator.py">
