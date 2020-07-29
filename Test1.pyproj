@@ -35,6 +35,9 @@
     <Compile Include="tki-entrylabel.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tki-image-viewer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tki-image.py">
       <SubType>Code</SubType>
     </Compile>
