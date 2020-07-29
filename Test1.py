@@ -1,12 +1,13 @@
 import tkinter as tk
-import tkinter.messagebox as tkmb
 from PIL import Image
 from PIL import ImageTk
 
 # Zmienne globalne
+Root = tk.Tk()
 ActualImageNumber = 0
 ImageList = []
-ImageLabel = 0
+Text1 = tk.StringVar(Root)
+StatusBarText = tk.StringVar(Root)
 
 # Zmiana obrazka
 def ChangeImage(NewImageNumber):
@@ -40,8 +41,11 @@ def ChangeImage(NewImageNumber):
     else:
         ButtonPrev.config(state=tk.ACTIVE)
 
+    # Aktualizacja statusu
+    global StatusBarText
+    StatusBarText.set("Image {} / {}".format(ActualImageNumber+1, len(ImageList)))
+
 # Okna główne
-Root = tk.Tk()
 Root.title("Image viewer")
 Root.iconbitmap("atom128.ico")
 
@@ -77,6 +81,9 @@ for i in range(5):
 ImageLabel = tk.Label(image=ImageList[0])
 ImageLabel.grid(row=0, column=0, columnspan=3)
 
+# Tekst w pasku stanu
+StatusBarText.set("Image 1 / " + str(len(ImageList)))
+
 # Przyciski
 ButtonExit = tk.Button(Root, text="Exit", command=Root.quit)
 ButtonNext = tk.Button(Root, text=">", command=lambda: ChangeImage(ActualImageNumber+1))
@@ -84,6 +91,10 @@ ButtonPrev = tk.Button(Root, text="<", command=lambda: ChangeImage(ActualImageNu
 ButtonPrev.grid(row=1, column=0)
 ButtonExit.grid(row=1, column=1)
 ButtonNext.grid(row=1, column=2)
+
+# Status bar
+StatusBar = tk.Label(Root, textvariable=StatusBarText, bd=1, relief=tk.SUNKEN, anchor=tk.E)
+StatusBar.grid(row=2, column=0, columnspan=3, sticky=tk.W+tk.E)
 
 # Main loop    
 Root.mainloop() 
