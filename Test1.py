@@ -8,6 +8,8 @@ ActualImageNumber = 0
 ImageList = []
 Text1 = tk.StringVar(Root)
 StatusBarText = tk.StringVar(Root)
+RadioButtonVar = tk.IntVar()
+RadioButtonVar.set(0)
 
 # Zmiana obrazka
 def ChangeImage(NewImageNumber):
@@ -45,6 +47,9 @@ def ChangeImage(NewImageNumber):
     global StatusBarText
     StatusBarText.set("Image {} / {}".format(ActualImageNumber+1, len(ImageList)))
 
+    #Aktualizacja zmiennej dla radio buttonów
+    RadioButtonVar.set(ActualImageNumber)
+
 # Okna główne
 Root.title("Image viewer")
 Root.iconbitmap("atom128.ico")
@@ -73,6 +78,7 @@ Root.iconbitmap("atom128.ico")
 #ImageList += [Image3]
 #ImageList += [Image4]
 
+# Lista obrazów - wersja 4
 for i in range(5):
     print(i)
     ImageList.append(ImageTk.PhotoImage(Image.open("images/" + str(i) + ".png")))
@@ -95,6 +101,32 @@ ButtonNext.grid(row=1, column=2)
 # Status bar
 StatusBar = tk.Label(Root, textvariable=StatusBarText, bd=1, relief=tk.SUNKEN, anchor=tk.E)
 StatusBar.grid(row=2, column=0, columnspan=3, sticky=tk.W+tk.E)
+
+# Ramka 1 - radiobuttony dodawane pojedynczo
+Frame1 = tk.LabelFrame(Root, text="Radio Buttony 1")
+Frame1.grid(row=0, column=3, sticky=tk.N)
+
+tk.Radiobutton(Frame1, text="Foto 1", value=0, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(Frame1, text="Foto 2", value=1, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(Frame1, text="Foto 3", value=2, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(Frame1, text="Foto 4", value=3, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(Frame1, text="Foto 5", value=4, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+TestLabel1 = tk.Label(Frame1, textvariable=RadioButtonVar).pack()
+
+# Ramka 2 - radiobuttony dodawane poprzez listę
+Frame2 = tk.LabelFrame(Root, text="Radio Buttony 2")
+Frame2.grid(row=0, column=4, sticky=tk.N)
+RadioButtonList = [
+    ("Image 1", 0),
+    ("Image 2", 1),
+    ("Image 3", 2),
+    ("Image 4", 3),
+    ("Image 5", 4),
+]
+for (Txt, Val) in RadioButtonList:
+    tk.Radiobutton(Frame2, text=Txt, value=Val, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+
+TestLabel2 = tk.Label(Frame2, textvariable=RadioButtonVar).pack()
 
 # Main loop    
 Root.mainloop() 
