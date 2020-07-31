@@ -8,6 +8,8 @@ ActualImageNumber = 0
 ImageList = []
 Text1 = tk.StringVar(Root)
 StatusBarText = tk.StringVar(Root)
+RadioButtonVar = tk.IntVar()
+RadioButtonVar.set(0)
 
 # Zmiana obrazka
 def ChangeImage(NewImageNumber):
@@ -45,6 +47,9 @@ def ChangeImage(NewImageNumber):
     global StatusBarText
     StatusBarText.set("Image {} / {}".format(ActualImageNumber+1, len(ImageList)))
 
+    #Aktualizacja zmiennej dla radio buttonów
+    RadioButtonVar.set(ActualImageNumber)
+
 # Okna główne
 Root.title("Image viewer")
 Root.iconbitmap("atom128.ico")
@@ -73,6 +78,7 @@ Root.iconbitmap("atom128.ico")
 #ImageList += [Image3]
 #ImageList += [Image4]
 
+# Lista obrazów - wersja 4
 for i in range(5):
     print(i)
     ImageList.append(ImageTk.PhotoImage(Image.open("images/" + str(i) + ".png")))
@@ -95,6 +101,21 @@ ButtonNext.grid(row=1, column=2)
 # Status bar
 StatusBar = tk.Label(Root, textvariable=StatusBarText, bd=1, relief=tk.SUNKEN, anchor=tk.E)
 StatusBar.grid(row=2, column=0, columnspan=3, sticky=tk.W+tk.E)
+
+# Ramka z lewej strony
+FrameLeft = tk.LabelFrame(Root, text="Radio Buttony")
+FrameLeft.grid(row=0, column=3, sticky=tk.N)
+
+tk.Radiobutton(FrameLeft, text="Foto 1", value=0, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(FrameLeft, text="Foto 2", value=1, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(FrameLeft, text="Foto 3", value=2, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(FrameLeft, text="Foto 4", value=3, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+tk.Radiobutton(FrameLeft, text="Foto 5", value=4, variable=RadioButtonVar, command=lambda: ChangeImage(RadioButtonVar.get())).pack(anchor=tk.W)
+
+TestButton = tk.Button(FrameLeft, text="Test")
+TestButton.pack()
+
+TestLabel = tk.Label(FrameLeft, textvariable=RadioButtonVar).pack()
 
 # Main loop    
 Root.mainloop() 
