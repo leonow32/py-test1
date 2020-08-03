@@ -41,6 +41,9 @@
     <Compile Include="tki-image.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tki-listbox.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tki-windows.py">
       <SubType>Code</SubType>
     </Compile>
