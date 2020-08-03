@@ -1,6 +1,7 @@
 # Prosty program demostracyjny do podstawowych kontrolek z TKinter
 
 import tkinter as tk
+from tkinter import ttk 
 
 # Okna główne
 Root = tk.Tk()
@@ -29,6 +30,17 @@ Entry2 = tk.Entry(Root)
 Entry2.grid(row = 1, column = 1)
 Button2 = tk.Button(Root, text = "Skopiuj2", command = Klik2)
 Button2.grid(row = 2, column = 1)
+
+# Część 3 - label z biblioteki TTK
+def Klik3():
+    Label3["text"] = Entry3.get()
+
+Label3 = ttk.Label(Root, text = "Label3")
+Label3.grid(row = 0, column = 2)
+Entry3 = ttk.Entry(Root)
+Entry3.grid(row = 1, column = 2)
+Button3 = ttk.Button(Root, text = "Skopiuj3", command = Klik3)
+Button3.grid(row = 2, column = 2)
 
 # Main loop    
 Root.mainloop() 
