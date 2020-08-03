@@ -32,6 +32,9 @@
     <Compile Include="tki-calculator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tki-database.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tki-entrylabel.py">
       <SubType>Code</SubType>
     </Compile>
