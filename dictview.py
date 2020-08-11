@@ -37,10 +37,10 @@ D = {
 def printDict(DictInstance, NestLevel):
     for a, b in DictInstance.items():
         if type(b) == dict:
-            print("    " * NestLevel, a, ": ")
+            print("    " * NestLevel, a, ":", type(b))
             printDict(b, NestLevel+1)
         else:
-            print("    " * NestLevel, a, ": ", b, type(b))
+            print("    " * NestLevel, a, ":", b, type(b))
 
     return
 
