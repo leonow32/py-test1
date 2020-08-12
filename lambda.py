@@ -9,12 +9,51 @@ Commands = {
     "*":                lambda Args: OperationMul(Args),
     "/":                lambda Args: OperationDiv(Args),
     "show":             lambda Args: ShowArgs(Args),
-    "pd":               lambda Args: PrintDict1(Args),
+    "pd":               lambda Args: PrintDictCmd(Args),
+    "l1":               lambda Args: CmdPrintList1(Args),
+    "l2":               lambda Args: CmdPrintList2(Args),
+    "r":                lambda Args: CmdRekurencja(Args),
     "exit":             lambda Args: Exit(Args),
     }
 
+List = [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    ]
+
+def PrintList(inp):
+    i = 0
+    for item in inp:
+        print("{}:\t{}".format(i, item))
+        inp[i] = inp[i] * 10
+        i = i+1
+
+def CmdPrintList1(Args):
+    PrintList(List)
+    return ""
+
+def CmdPrintList2(Args):
+    PrintList(List[1:3])
+    return ""
+
+def Rekurencja(InputList):
+
+    return
+
+def CmdRekurencja(Args):
+
+    return ""
+
 def Exit(Args):
-    quit
+    quit()
 
 def ShowArgs(Args):
     i = 0;
@@ -53,6 +92,7 @@ def PrintDict(DictInstance, NestLevel):
         else:
             print("    " * NestLevel, a, ":", b, type(b))
 
+# Funkcja main
 def main():
     PrintDict(Commands, 0)
     
