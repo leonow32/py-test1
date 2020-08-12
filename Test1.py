@@ -16,6 +16,15 @@ Commands = {
     "exit":             lambda Args: Exit(Args),
     }
 
+# Interpreter
+# Analizowany jest pierwszy element listy
+# - jeżeli jest liczbą, to jest zwracana liczba
+# - jeżeli jest poleceniem to wywoływana jest funkcja odpowiadająca temu poleceniu
+# - inaczej zwracany jest błąd
+def Interpreter(Args):
+    Result = Commands[Args[0]](Args) if Args[0] in Commands else "Bad command"
+    return Result
+
 List = [
     10,
     11,
@@ -31,6 +40,7 @@ List = [
 
 def PrintList(inp):
     i = 0
+
     for item in inp:
         print("{}:\t{}".format(i, item))
         inp[i] = inp[i] * 10
@@ -46,10 +56,22 @@ def CmdPrintList2(Args):
 
 def Rekurencja(InputList):
 
+    print("==== List count: {}".format(len(InputList)))
+    if len(InputList) == 0:
+        return
+
+    i = 0;
+    for value in InputList:
+        print("{}\t{}".format(i, value))
+        i = i+1
+    
+    # Wywolanie z ta sama lista, ale bez pierwszego elementu
+    Rekurencja(InputList[1:])     
+        
     return
 
 def CmdRekurencja(Args):
-
+    Rekurencja(List)
     return ""
 
 def Exit(Args):
@@ -84,6 +106,7 @@ def PrintDictCmd(Args):
     PrintDict(Commands, 0)
     return ""
 
+# Wyświetlenie słownika
 def PrintDict(DictInstance, NestLevel):
     for a, b in DictInstance.items():
         if type(b) == dict:
@@ -100,7 +123,9 @@ def main():
         Args = input("> ")                                                          # Prompt
         Args = Args.split()                                                         # Rozbijanie wiersza polecen na poszczegolne wyrazy
         if len(Args) == 0: continue                                                 # Kontrola czy wprowadzono chociaz jeden argument
-        print(Commands[Args[0]](Args) if Args[0] in Commands else "Bad command")    # Wykonanie polecenia
+        #print(Commands[Args[0]](Args) if Args[0] in Commands else "Bad command")    # Wykonanie polecenia
+        Result = Interpreter(Args)
+        print("Result={}".format(Result))
 
 if __name__ == "__main__":
 	main()
