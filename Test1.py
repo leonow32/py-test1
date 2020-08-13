@@ -1,173 +1,129 @@
 # Test slownika i funkcji lambda
 
-# Lista poleceń
+# Lista poleceń wprowadzana z klawiatury
 Args = []
 
 # Tablica wszystkich poleceń
 Commands = {
-    "inc":              lambda Args: OperationInc(Args),
-    "dec":              lambda Args: OperationDec(Args),
-    "+":                lambda Args: OperationAdd(Args),
-    "-":                lambda Args: OperationSub(Args),
-    "*":                lambda Args: OperationMul(Args),
-    "/":                lambda Args: OperationDiv(Args),
-    "show":             lambda Args: ShowArgs(Args),
-    "pd":               lambda Args: PrintDictCmd(Args),
-    "l1":               lambda Args: CmdPrintList1(Args),
-    "l2":               lambda Args: CmdPrintList2(Args),
-    "r":                lambda Args: CmdRekurencja(Args),
-    "exit":             lambda Args: Exit(Args),
-    }
+    "exit":             lambda: CmdExit(),
+    "commands":         lambda: CmdCommands(),
+    "vars":             lambda: CmdVariables(),
+    "=":                lambda: CmdSetVariable(),
+    "const":            lambda: CmdConst(),
+    "echo":             lambda: CmdEcho(),
+    "inc":              lambda: CmdOperatorInc(),
+    "dec":              lambda: CmdOperatorDec(),
+    "+":                lambda: CmdOperatorAdd(),
+    "-":                lambda: CmdOperatorSub(),
+    "*":                lambda: CmdOperatorMul(),
+    "/":                lambda: CmdOperatorDiv(),
+}
+
+# Słownik zmiennych
+Variables = {}
+
+def CmdExit():
+    quit()
+    return 
+
+def CmdCommands():
+    i = 0
+    for Item in Commands.keys():
+        print("{}:\t{}".format(i, Item))
+        i = i+1
+
+def CmdVariables():
+    for Name, Value in Variables.items():
+        print("{}:\t{}".format(Name, Value))
+
+def CmdSetVariable():
+    global Args
+    Name = str(Args[0])
+    
+    ### Dodać sprawdzenie czy nazwa zmiennej nie koliduje z jakąś nazwą funkcji
+
+    Args = Args[1:]
+    Value = InterpreterGlobal()
+    Variables[Name] = Value
+    return Value
+
+def CmdConst():
+    return 123
+
+def CmdEcho():
+    return InterpreterGlobal()
+
+def CmdOperatorInc():
+    return InterpreterGlobal() + 1
+
+def CmdOperatorDec():
+    return InterpreterGlobal() - 1
+
+def CmdOperatorAdd():
+    return InterpreterGlobal() + InterpreterGlobal()
+
+def CmdOperatorSub():
+    return InterpreterGlobal() - InterpreterGlobal()
+
+def CmdOperatorMul():
+    return InterpreterGlobal() * InterpreterGlobal()
+
+def CmdOperatorDiv():
+    return InterpreterGlobal() / InterpreterGlobal()
+
+# Sprawdzenie czy podany argument jest liczbą
+def IsFloat(String):
+    try:
+        float(String)
+        return True
+    except ValueError:
+        return False
 
 # Interpreter
 # Analizowany jest pierwszy element listy
 # - jeżeli jest liczbą, to jest zwracana liczba
 # - jeżeli jest poleceniem to wywoływana jest funkcja odpowiadająca temu poleceniu
 # - inaczej zwracany jest błąd
-def Interpreter(Args):
-    Result = Commands[Args[0]](Args) if Args[0] in Commands else "Bad command"
-    return Result
-
-# Używa globalnej listy Args
 def InterpreterGlobal():
     global Args
 
     # Odczytanie pierwszego elementu z listy, który będzie interpretowany przesunięcie pozostałych elementów
+    if len(Args) == 0:
+        return None
     Argument = str(Args[0])
     Args = Args[1:]
 
-    # Sprawdzenie czy to int
-    if Argument.isnumeric():
-        print("Argument {} to int".format(Argument))
-        return
-
     # Sprawdznie czy to float
-    if Argument.isdigit():
-        print("Argument {} to digit".format(Argument))
-        return
+    if IsFloat(Argument):
+        print("Argument {} to float".format(Argument))
+        return float(Argument)
+
+    # Sprawdzenie czy to zmienna
+    if Argument in Variables:
+        print("Argument {} to zmienna = {}".format(Argument, Variables[Argument]))
+        return Variables[Argument]
     
+    # Sprawdznie czy to polecenie
+    if Argument in Commands:
+        print("Argument {} to polecenie".format(Argument))
+        return Commands[Argument]()
+
+    # Nie udało się zinterpretować
     print("Argument {} jest inny".format(Argument))
-    return
+    return None
 
 
-List = [
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    ]
-
-def PrintList(inp):
-    i = 0
-
-    for item in inp:
-        print("{}:\t{}".format(i, item))
-        inp[i] = inp[i] * 10
-        i = i+1
-
-def CmdPrintList1(Args):
-    PrintList(List)
-    return ""
-
-def CmdPrintList2(Args):
-    PrintList(List[1:3])
-    return ""
-
-def Rekurencja(InputList):
-
-    print("==== List count: {}".format(len(InputList)))
-    if len(InputList) == 0:
-        return
-
-    i = 0;
-    for value in InputList:
-        print("{}\t{}".format(i, value))
-        i = i+1
-    
-    # Wywolanie z ta sama lista, ale bez pierwszego elementu
-    Rekurencja(InputList[1:])     
-        
-    return
-
-def CmdRekurencja(Args):
-    Rekurencja(List)
-    return ""
-
-def Exit(Args):
-    quit()
-
-def ShowArgs(Args):
-    i = 0;
-    for value in Args:
-        print("{}\t{}".format(i, value))
-        i = i+1
-    return ""
-
-def OperationInc(Args):
-    return float(Args[1]) + 1
-
-def OperationDec(Args):
-    return float(Args[1]) - 1
-
-def OperationAdd(Args):
-    return float(Args[1]) + float(Args[2])
-
-def OperationSub(Args):
-    return float(Args[1]) - float(Args[2])
-
-def OperationMul(Args):
-    return float(Args[1]) * float(Args[2])
-
-def OperationDiv(Args):
-    return float(Args[1]) / float(Args[2])
-
-def PrintDictCmd(Args):
-    PrintDict(Commands, 0)
-    return ""
-
-# Wyświetlenie słownika
-def PrintDict(DictInstance, NestLevel):
-    for a, b in DictInstance.items():
-        if type(b) == dict:
-            print("    " * NestLevel, a, ":", type(b))
-            printDict(b, NestLevel+1)
-        else:
-            print("    " * NestLevel, a, ":", b, type(b))
 
 # Funkcja main
 def main():
-    PrintDict(Commands, 0)
 
     global Args
-    Args.append("abc")
-    Args.append("123")
-    Args.append("-321")
-    Args.append("3.14")
-    Args.append("-3.14")
-
-    InterpreterGlobal()
-    InterpreterGlobal()
-    InterpreterGlobal()
-    InterpreterGlobal()
-    InterpreterGlobal()
-    InterpreterGlobal()
-
-
-    quit()
     
     while True:
         Args = input("> ")                                                          # Prompt
         Args = Args.split()                                                         # Rozbijanie wiersza polecen na poszczegolne wyrazy
-        if len(Args) == 0: continue                                                 # Kontrola czy wprowadzono chociaz jeden argument
-        #print(Commands[Args[0]](Args) if Args[0] in Commands else "Bad command")    # Wykonanie polecenia
-        Result = Interpreter(Args)
-        print("Result={}".format(Result))
+        Result = InterpreterGlobal()
+        print("Result = {}".format(Result))
 
 if __name__ == "__main__":
 	main()
