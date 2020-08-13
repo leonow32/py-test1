@@ -1,5 +1,8 @@
 # Test slownika i funkcji lambda
 
+# Lista poleceń
+Args = []
+
 # Tablica wszystkich poleceń
 Commands = {
     "inc":              lambda Args: OperationInc(Args),
@@ -24,6 +27,28 @@ Commands = {
 def Interpreter(Args):
     Result = Commands[Args[0]](Args) if Args[0] in Commands else "Bad command"
     return Result
+
+# Używa globalnej listy Args
+def InterpreterGlobal():
+    global Args
+
+    # Odczytanie pierwszego elementu z listy, który będzie interpretowany przesunięcie pozostałych elementów
+    Argument = str(Args[0])
+    Args = Args[1:]
+
+    # Sprawdzenie czy to int
+    if Argument.isnumeric():
+        print("Argument {} to int".format(Argument))
+        return
+
+    # Sprawdznie czy to float
+    if Argument.isdigit():
+        print("Argument {} to digit".format(Argument))
+        return
+    
+    print("Argument {} jest inny".format(Argument))
+    return
+
 
 List = [
     10,
@@ -118,6 +143,23 @@ def PrintDict(DictInstance, NestLevel):
 # Funkcja main
 def main():
     PrintDict(Commands, 0)
+
+    global Args
+    Args.append("abc")
+    Args.append("123")
+    Args.append("-321")
+    Args.append("3.14")
+    Args.append("-3.14")
+
+    InterpreterGlobal()
+    InterpreterGlobal()
+    InterpreterGlobal()
+    InterpreterGlobal()
+    InterpreterGlobal()
+    InterpreterGlobal()
+
+
+    quit()
     
     while True:
         Args = input("> ")                                                          # Prompt
