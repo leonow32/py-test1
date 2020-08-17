@@ -53,6 +53,9 @@
     <Compile Include="tki-listbox.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tki-matplotlib.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tki-windows.py">
       <SubType>Code</SubType>
     </Compile>
