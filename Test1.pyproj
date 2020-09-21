@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>03452616-51fa-4960-a23c-8dd50c29fbef</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>obiect-3polymorphism.py</StartupFile>
+    <StartupFile>object_4module_master.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,13 +34,19 @@
     <Compile Include="lambda.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="obiect-2inheritance.py">
+    <Compile Include="object_2inheritance.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="obiect-1class.py">
+    <Compile Include="object_1class.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="obiect-3polymorphism.py">
+    <Compile Include="object_3polymorphism.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="object_4module_master.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="object_4module_slave.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test1.py" />

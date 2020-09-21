@@ -101,7 +101,8 @@ def main():
     PrintAllFigures(List)
 
     for item in List:        
-        print(f"{item.Name}\tArea = {item.GetArea()}\tCircuit = {item.GetCircuit()}")
+        #print(f"{item.Name}\tArea = {item.GetArea()}\tCircuit = {item.GetCircuit()}")
+        print(item.Name + "\tArea = " + str(item.GetArea()) + "\tCircuit = " + str(item.GetCircuit()))
 
 if __name__ == "__main__":
     main()
