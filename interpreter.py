@@ -1,4 +1,4 @@
-# Test slownika i funkcji lambda
+# Interpreter poleceń odwróconej notacji polskiej
 
 # Lista poleceń wprowadzana z klawiatury
 Args = []
