@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>03452616-51fa-4960-a23c-8dd50c29fbef</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>object_4module_master.py</StartupFile>
+    <StartupFile>object_5magic.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -47,6 +47,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="object_4module_slave.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="object_5magic.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test1.py" />
