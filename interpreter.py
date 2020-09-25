@@ -1,7 +1,5 @@
 # Interpreter poleceń odwróconej notacji polskiej
-
-# Lista poleceń wprowadzana z klawiatury
-Args = []
+from interpreter_core import *
 
 # Tablica wszystkich poleceń
 Commands = {
@@ -19,8 +17,7 @@ Commands = {
     "/":                lambda: CmdOperatorDiv(),
 }
 
-# Słownik zmiennych
-Variables = {}
+
 
 def CmdExit():
     quit()
@@ -71,46 +68,9 @@ def CmdOperatorMul():
 def CmdOperatorDiv():
     return InterpreterGlobal() / InterpreterGlobal()
 
-# Sprawdzenie czy podany argument jest liczbą
-def IsFloat(String):
-    try:
-        float(String)
-        return True
-    except ValueError:
-        return False
 
-# Interpreter
-# Analizowany jest pierwszy element listy
-# - jeżeli jest liczbą, to jest zwracana liczba
-# - jeżeli jest poleceniem to wywoływana jest funkcja odpowiadająca temu poleceniu
-# - inaczej zwracany jest błąd
-def InterpreterGlobal():
-    global Args
 
-    # Odczytanie pierwszego elementu z listy, który będzie interpretowany przesunięcie pozostałych elementów
-    if len(Args) == 0:
-        return None
-    Argument = str(Args[0])
-    Args = Args[1:]
 
-    # Sprawdznie czy to float
-    if IsFloat(Argument):
-        print("Argument {} to float".format(Argument))
-        return float(Argument)
-
-    # Sprawdzenie czy to zmienna
-    if Argument in Variables:
-        print("Argument {} to zmienna = {}".format(Argument, Variables[Argument]))
-        return Variables[Argument]
-    
-    # Sprawdznie czy to polecenie
-    if Argument in Commands:
-        print("Argument {} to polecenie".format(Argument))
-        return Commands[Argument]()
-
-    # Nie udało się zinterpretować
-    print("Argument {} jest inny".format(Argument))
-    return None
 
 
 
@@ -118,11 +78,13 @@ def InterpreterGlobal():
 def main():
 
     global Args
+
+    Inter = InterpreterClass(Commands)
     
     while True:
         Args = input("> ")                                                          # Prompt
-        Args = Args.split()                                                         # Rozbijanie wiersza polecen na poszczegolne wyrazy
-        Result = InterpreterGlobal()
+        
+        Result = Inter.InterpreterGlobal(Args)
         print("Result = {}".format(Result))
 
 if __name__ == "__main__":
