@@ -1,5 +1,4 @@
 # Interpreter poleceń w wersji obiektowej
-
 class InterpreterClass:
     
     # Lista poleceń wprowadzana z klawiatury
@@ -29,42 +28,43 @@ class InterpreterClass:
             return False
 
     # Interpreter
-    # Przyjmuje ciąg znaków będący poleceniem i zwraca wartość
-#    def Interpreter(CommandLine):
-#        return
-
-    # Interpreter
     # Analizowany jest pierwszy element listy
     # - jeżeli jest liczbą, to jest zwracana liczba
     # - jeżeli jest poleceniem to wywoływana jest funkcja odpowiadająca temu poleceniu
     # - inaczej zwracany jest błąd
-    def InterpreterGlobal(self, Args):
-        
-        # Rozbijanie wiersza polecen na poszczegolne wyrazy
-        Args = Args.split()                                                         
+    def Interpreter(self, InterpreterInstance):                                                        
 
-        # Odczytanie pierwszego elementu z listy, który będzie interpretowany przesunięcie pozostałych elementów
-        if len(Args) == 0:
+        # Odczytanie pierwszego elementu z listy, który będzie interpretowany i przesunięcie pozostałych elementów
+        if len(self.Args) == 0:
             return None
-        Argument = str(Args[0])
-        Args = Args[1:]
+        Argument = str(self.Args[0])
+        self.Args = self.Args[1:]
 
         # Sprawdznie czy to float
         if InterpreterClass.IsFloat(Argument):
-            print("Argument {} to float".format(Argument))
+            print("Argument {Argument} to float")
             return float(Argument)
 
         # Sprawdzenie czy to zmienna
         if Argument in InterpreterClass.Variables:
-            print("Argument {} to zmienna = {}".format(Argument, Variables[Argument]))
-            return Variables[Argument]
+            print(f"Argument {Argument} to zmienna = {self.Variables[Argument]}")
+            return self.Variables[Argument]
     
         # Sprawdznie czy to polecenie
-        if Argument in InterpreterClass.Commands:
-            print("Argument {} to polecenie".format(Argument))
-            return Commands[Argument]()
+        if Argument in self.Commands:
+            print(f"Argument {Argument} to polecenie")
+            return self.Commands[Argument](InterpreterInstance)
 
         # Nie udało się zinterpretować
-        print("Argument {} jest inny".format(Argument))
+        print(f"Argument {Argument} jest inny")
         return None
+
+    # Interpreter
+    # Przyjmuje ciąg znaków będący poleceniem i zwraca wartość
+    def InterpreterString(self, CommandLine, InterpreterInstance):
+
+        # Rozbijanie wiersza polecen na poszczegolne wyrazy
+        self.Args = CommandLine.split() 
+
+        return self.Interpreter(InterpreterInstance)
 

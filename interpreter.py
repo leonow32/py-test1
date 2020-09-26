@@ -1,72 +1,78 @@
 # Interpreter poleceń odwróconej notacji polskiej
 from interpreter_core import *
 
+
+
 # Tablica wszystkich poleceń
 Commands = {
-    "exit":             lambda: CmdExit(),
-    "commands":         lambda: CmdCommands(),
-    "vars":             lambda: CmdVariables(),
-    "=":                lambda: CmdSetVariable(),
-    "const":            lambda: CmdConst(),
-    "echo":             lambda: CmdEcho(),
-    "inc":              lambda: CmdOperatorInc(),
-    "dec":              lambda: CmdOperatorDec(),
-    "+":                lambda: CmdOperatorAdd(),
-    "-":                lambda: CmdOperatorSub(),
-    "*":                lambda: CmdOperatorMul(),
-    "/":                lambda: CmdOperatorDiv(),
+    "exit":             lambda ii: CmdExit(ii),
+    "all":              lambda ii: CmdAllCommands(ii),
+    "vars":             lambda ii: CmdVariables(ii),
+    "=":                lambda ii: CmdSetVariable(ii),
+    "const":            lambda ii: CmdConst(ii),
+    "echo":             lambda ii: CmdEcho(ii),
+    "inc":              lambda ii: CmdOperatorInc(ii),
+    "dec":              lambda ii: CmdOperatorDec(ii),
+    "+":                lambda ii: CmdOperatorAdd(ii),
+    "-":                lambda ii: CmdOperatorSub(ii),
+    "*":                lambda ii: CmdOperatorMul(ii),
+    "/":                lambda ii: CmdOperatorDiv(ii),
+}
+
+Commands2 = {
+    "all":              lambda ii: CmdAllCommands(ii),
+    "echo":             lambda ii: CmdEcho(ii),
 }
 
 
 
-def CmdExit():
+def CmdExit(ii):
     quit()
     return 
 
-def CmdCommands():
+def CmdAllCommands(ii):
     i = 0
-    for Item in Commands.keys():
-        print("{}:\t{}".format(i, Item))
+    for Item in ii.Commands.keys():
+        print(f"{i}:\t{Item}")
         i = i+1
 
-def CmdVariables():
-    for Name, Value in Variables.items():
-        print("{}:\t{}".format(Name, Value))
+def CmdVariables(ii):
+    for Name, Value in ii.Variables.items():
+        print(f"{Name}:\t{Value}")
 
-def CmdSetVariable():
-    global Args
-    Name = str(Args[0])
+def CmdSetVariable(ii):
+    Name = str(ii.Args[0])
     
     ### Dodać sprawdzenie czy nazwa zmiennej nie koliduje z jakąś nazwą funkcji
 
-    Args = Args[1:]
-    Value = InterpreterGlobal()
-    Variables[Name] = Value
+    ii.Args = ii.Args[1:]
+    Value = ii.Interpreter(ii)
+    ii.Variables[Name] = Value
     return Value
 
-def CmdConst():
+def CmdConst(ii):
     return 123
 
-def CmdEcho():
-    return InterpreterGlobal()
+def CmdEcho(ii):
+    return ii.Interpreter(ii)
 
-def CmdOperatorInc():
-    return InterpreterGlobal() + 1
+def CmdOperatorInc(ii):
+    return ii.Interpreter(ii) + 1
 
-def CmdOperatorDec():
-    return InterpreterGlobal() - 1
+def CmdOperatorDec(ii):
+    return ii.Interpreter(ii) - 1
 
-def CmdOperatorAdd():
-    return InterpreterGlobal() + InterpreterGlobal()
+def CmdOperatorAdd(ii):
+    return ii.Interpreter(ii) + ii.Interpreter(ii)
 
-def CmdOperatorSub():
-    return InterpreterGlobal() - InterpreterGlobal()
+def CmdOperatorSub(ii):
+    return ii.Interpreter(ii) - ii.Interpreter(ii)
 
-def CmdOperatorMul():
-    return InterpreterGlobal() * InterpreterGlobal()
+def CmdOperatorMul(ii):
+    return ii.Interpreter(ii) * ii.Interpreter(ii)
 
-def CmdOperatorDiv():
-    return InterpreterGlobal() / InterpreterGlobal()
+def CmdOperatorDiv(ii):
+    return ii.Interpreter(ii) / ii.Interpreter(ii)
 
 
 
@@ -77,15 +83,19 @@ def CmdOperatorDiv():
 # Funkcja main
 def main():
 
-    global Args
+    # Instancja interpretera
+    Inter0 = InterpreterClass(Commands)
 
-    Inter = InterpreterClass(Commands)
+    #Inter1 = InterpreterClass(Commands2)
     
     while True:
-        Args = input("> ")                                                          # Prompt
-        
-        Result = Inter.InterpreterGlobal(Args)
-        print("Result = {}".format(Result))
+        InputCommand = input("0> ")                                                          # Prompt
+        Result = Inter0.InterpreterString(InputCommand, Inter0)
+        print(f"Result0 = {Result}")
+
+        #InputCommand = input("1> ")                                                          # Prompt
+        #Result = Inter1.InterpreterString(InputCommand, Inter1)
+        #print(f"Result1 = {Result}")
 
 if __name__ == "__main__":
 	main()
