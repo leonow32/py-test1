@@ -19,6 +19,11 @@ class InterpreterClass:
             print(f"{i}:\t{Item}")
             i += 1
 
+    # Dodawanie polecenia do tablicy poleceń
+    def CommandAdd(self, CommandName, Lambda):
+        print(f"Dodawanie {CommandName}, {Lambda}")
+        self.Commands[CommandName] = Lambda
+
     # Sprawdzenie czy podany argument jest liczbą
     def IsFloat(String):
         try:

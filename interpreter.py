@@ -74,7 +74,9 @@ def CmdOperatorMul(ii):
 def CmdOperatorDiv(ii):
     return ii.Interpreter(ii) / ii.Interpreter(ii)
 
-
+def CmdTestDodawaniaPolecen(ii):
+    print("Polecenie dodane po konstruktorze")
+    return None
 
 
 
@@ -85,6 +87,7 @@ def main():
 
     # Instancja interpretera
     Inter0 = InterpreterClass(Commands)
+    Inter0.CommandAdd("dodane", lambda ii: CmdTestDodawaniaPolecen(ii))
 
     #Inter1 = InterpreterClass(Commands2)
     
