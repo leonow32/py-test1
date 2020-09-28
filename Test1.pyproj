@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>03452616-51fa-4960-a23c-8dd50c29fbef</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Test1.py</StartupFile>
+    <StartupFile>interpreter.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,17 +24,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="1.py" />
-    <Compile Include="console.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="dictview.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lambda.py">
+    <Compile Include="interpreter.py" />
+    <Compile Include="interpreter_core.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test1.py" />
     <Compile Include="tki-calculator.py">
       <SubType>Code</SubType>
     </Compile>
